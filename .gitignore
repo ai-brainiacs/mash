@@ -3,3 +3,4 @@ src/composer.lock
 src/vendor
 src/prompt.d/custom_prompt.txt
 src/history.d/history.jsonl
+src/log.d/ash.log
