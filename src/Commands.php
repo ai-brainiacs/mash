@@ -16,8 +16,11 @@ class Commands
             case "exit":
             case "quit":
                 exit(0);
+            case "sh":
+            case "cmd":
+            case "zsh":
             case "bash":
-                passthru(trim(shell_exec("which bash")));
+                passthru(trim(shell_exec("which zsh || which bash || which sh")));
                 return "";
             case "clear":
                 $this->ash->openai->history->clearHistory();
