@@ -75,13 +75,17 @@ class OpenAI
         $prompt = [
             "model" => $this->model,
             "messages" => $messages,
-            "temperature" => 0.1,
-            "top_p" => 0.1,
+            "temperature" => 0.25,
+            "top_p" => 0.25,
             "frequency_penalty" => 0.0,
             "presence_penalty" => 0.0,
             "functions" => $this->getFunctions(),
         ];
-        if ($this->ash->debug) echo ("debug: Sending prompt to OpenAI: " . print_r($prompt, true) . "\n");
+        if ($this->functionDepth > 3) {
+            $prompt["function_call"] = "none";
+            $prompt["messages"][] = ["role" => "system", "content" => "Function limit reached. Please provide a status update and prompt for confirmation to continue."];
+        }
+        //if ($this->ash->debug) echo ("debug: Sending prompt to OpenAI: " . print_r($prompt, true) . "\n");
         if ($this->ash->shell) {
             if (!$this->ash->config->config["emojiSupport"]) echo ("Thinking...");
             else echo ("🧠 Thinking...");
@@ -196,6 +200,7 @@ class OpenAI
 
     private function handleFunctionCall($function_call, $arguments)
     {
+        $this->functionDepth++;
         if ($this->ash->debug) echo ("debug: handleFunctionCall($function_call, " . print_r($arguments, true) . ")\n");
         $function_message = ["role" => "assistant", "content" => null, "function_call" => ["name" => $function_call, "arguments" => json_encode($arguments)]];
         $this->history->saveMessage($function_message);
@@ -204,8 +209,11 @@ class OpenAI
             $result = $handler($arguments);
             if ($this->ash->debug) echo ("debug: handleFunctionCall($function_call, " . print_r($arguments, true) . ") result: " . print_r($result, true) . "\n");
             $this->functionFollowUp($function_call, $result);
+            $this->functionDepth--;
             return;
-        } else $this->functionFollowUp($function_call, ["stdout" => "", "stderr" => "Error (ash): function handler for $function_call not found.  Does ash/src/functions.d/$function_call.php exist?", "exitCode" => -1]);
+        }
+        $this->functionFollowUp($function_call, ["stdout" => "", "stderr" => "Error (ash): function handler for $function_call not found.  Does ash/src/functions.d/$function_call.php exist?", "exitCode" => -1]);
+        $this->functionDepth--;
         return;
     }
 
