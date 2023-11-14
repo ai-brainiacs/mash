@@ -6,27 +6,33 @@
         "properties": {
             "path": {
                 "type": "string",
-                "description": "The path to the file to be written"
+                "description": "The path to the file to be written",
+                "optional": false
             },
             "content": {
                 "type": "string",
-                "description": "The content to be written to the file"
+                "description": "The content to be written to the file",
+                "optional": false
             },
             "append": {
                 "type": "integer",
-                "description": "Whether to append to the file or overwrite it (0 = overwrite, 1 = append)"
+                "description": "Whether to append to the file or overwrite it (0 = overwrite, 1 = append)",
+                "optional": false
             },
             "owner": {
                 "type": "string",
-                "description": "Set the owner of the file"
+                "description": "Set the owner of the file",
+                "optional": false
             },
             "group": {
                 "type": "string",
-                "description": "Set the group of the file"
+                "description": "Set the group of the file",
+                "optional": false
             },
             "chmod": {
                 "type": "string",
-                "description": "Set the permissions of the file"
+                "description": "Set the permissions of the file",
+                "optional": false
             }
         },
         "required": [
