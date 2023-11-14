@@ -1,0 +1,1 @@
+The ash.log contains a list of changes made by the shell.
