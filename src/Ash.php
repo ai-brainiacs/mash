@@ -15,7 +15,7 @@ class Ash
     {
 
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            echo "Error: This program is for Linux only.\n";
+            echo "Error: This program is for MacOS only.\n";
             exit(1);
         }
         if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
