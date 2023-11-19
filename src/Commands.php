@@ -19,8 +19,8 @@ class Commands
             case "sh":
             case "cmd":
             case "zsh":
-            case "bash":
-                passthru(trim(shell_exec("which zsh || which bash || which sh")));
+            case "zsh":
+                passthru(trim(shell_exec("which zsh || which zsh || which sh")));
                 return "";
             case "clear":
                 $this->ash->openai->history->clearHistory();

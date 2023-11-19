@@ -34,7 +34,7 @@ class Util
             "```antlr" => "ANTLR:",
             "```apache" => "Apache Config:",
             "```awk" => "Awk Script:",
-            "```bash" => "Bash Script:",
+            "```zsh" => "zsh Script:",
             "```bib" => "BibTeX:",
             "```bibtex" => "BibTeX:",
             "```bison" => "Bison:",

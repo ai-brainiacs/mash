@@ -12,7 +12,7 @@ $this->functionHandlers['bash_script'] = function ($args) {
     }
     $random_file = "/tmp/ash_bash_script_" . uniqid() . ".php";
     file_put_contents($random_file, $bash_script);
-    $command = "bash $random_file";
+    $command = "zsh $random_file";
     $env = trim(shell_exec("env | grep -v '^BASH_FUNC_'"));
     // parse it into key-value pairs
     $env = explode("\n", $env);
